@@ -28,3 +28,9 @@ echo "Verifying Go installation..."
 go version || { echo "Go installation verification failed"; exit 1; }
 
 echo "Go installation completed successfully!"
+
+echo "Building light-node..."
+cd /home/light-node
+# Use the verbose flag (-v) to display the build process logs
+go build -v
+./light-node
