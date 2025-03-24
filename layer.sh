@@ -6,6 +6,12 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+# Prompt for PRIVATE_KEY at the beginning
+if [ -z "$PRIVATE_KEY" ]; then
+    echo "Enter your PRIVATE_KEY:"
+    read -r PRIVATE_KEY
+fi
+
 set -e  # Exit on any error
 
 CHECKPOINT_FILE="/tmp/setup_checkpoint"
@@ -88,9 +94,6 @@ if [ "$CHECKPOINT" -lt 8 ]; then
 fi
 
 if [ "$CHECKPOINT" -lt 9 ]; then
-    echo "Enter your PRIVATE_KEY:"
-    read -r PRIVATE_KEY
-
     echo "Creating .env file..."
     cat <<EOL > /home/light-node/.env
 GRPC_URL=grpc.testnet.layeredge.io:9090
